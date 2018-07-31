@@ -38,7 +38,11 @@
 
 <script type="text/javascript">
     $.ajax({
+<<<<<<< HEAD
            url: "http://192.168.10.106:8080/api/userlogin",
+=======
+           url: "http://192.168.10.127:8080/api/userlogin",
+>>>>>>> 5c304167703a76630d47d1c96a7591fbb8e5bda6
            type: "GET",
            dataType: "json",
            success: function(json) {
@@ -87,7 +91,11 @@
     });
     function buttonOne(j){
         var account = j;
+<<<<<<< HEAD
         var str = '<form action="http://192.168.10.106:8080/set/userlogin/userVerification"  enctype="application/json" method="post" target="_self"><input type="hidden" name="useremail" value =' + encodeURI(j) + '>' +
+=======
+        var str = '<form action="http://192.168.10.127:8080/set/userlogin/userVerification"  enctype="application/json" method="post" target="_self"><input type="hidden" name="useremail" value =' + encodeURI(j) + '>' +
+>>>>>>> 5c304167703a76630d47d1c96a7591fbb8e5bda6
                 '&nbsp;&nbsp;<input class="buttona" type ="submit" value="通過申請"></input>&nbsp;&nbsp;</form>';
         return str;
         
@@ -103,9 +111,15 @@
     function usestate(i,k){
         var str = "frm" + i;
         if(k==1)//通過
+<<<<<<< HEAD
             document.getElementById(str).action = "http://192.168.10.106:8080/set/userlogin/userAllow";
         else//[2]取消
             document.getElementById(str).action = "http://192.168.10.106:8080/set/userlogin/userNotAllow";
+=======
+            document.getElementById(str).action = "http://192.168.10.127:8080/set/userlogin/userAllow";
+        else//[2]取消
+            document.getElementById(str).action = "http://192.168.10.127:8080/set/userlogin/userNotAllow";
+>>>>>>> 5c304167703a76630d47d1c96a7591fbb8e5bda6
         document.getElementById(str).submit();
     }
 

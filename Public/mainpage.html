@@ -55,7 +55,11 @@
     function SignUp() {
         var ifSuccess = 1
         $.ajax({
+<<<<<<< HEAD
                url: "http://192.168.10.106:8080/api/userlogin",
+=======
+               url: "http://192.168.10.127:8080/api/userlogin",
+>>>>>>> 5c304167703a76630d47d1c96a7591fbb8e5bda6
                type: "GET",
                dataType: "json",
                success: function(json) {
@@ -70,7 +74,11 @@
 
                    }
                    if(ifSuccess==1){
+<<<<<<< HEAD
                    document.getElementById("myForm").action = "http://192.168.10.106:8080/set/userlogin/userInfoSignUp"
+=======
+                   document.getElementById("myForm").action = "http://192.168.10.127:8080/set/userlogin/userInfoSignUp"
+>>>>>>> 5c304167703a76630d47d1c96a7591fbb8e5bda6
                    document.getElementById("myForm").submit();
                    }
                }
@@ -87,7 +95,11 @@
     function ForgetPassword() {
         var ifFind = 0
         $.ajax({
+<<<<<<< HEAD
                url: "http://192.168.10.106:8080/api/userlogin",
+=======
+               url: "http://192.168.10.127:8080/api/userlogin",
+>>>>>>> 5c304167703a76630d47d1c96a7591fbb8e5bda6
                type: "GET",
                dataType: "json",
                success: function(json) {
@@ -99,7 +111,11 @@
                        }
                    }
                    if(ifFind==1){
+<<<<<<< HEAD
                        document.getElementById("myForm").action = "http://192.168.10.106:8080/set/userlogin/tryChange"
+=======
+                       document.getElementById("myForm").action = "http://192.168.10.127:8080/set/userlogin/tryChange"
+>>>>>>> 5c304167703a76630d47d1c96a7591fbb8e5bda6
                        document.getElementById("myForm").submit();
                    }
                    else{
@@ -122,7 +138,11 @@ function LogIn() {
     $(function() {
         $.ajax({
             type: "POST",
+<<<<<<< HEAD
             url: "http://192.168.10.106:8080/set/allowlogin",
+=======
+            url: "http://192.168.10.127:8080/set/allowlogin",
+>>>>>>> 5c304167703a76630d47d1c96a7591fbb8e5bda6
             data: $("#myForm").serialize(),
             success: function(data){
                 CorrectPassword = data
@@ -130,7 +150,11 @@ function LogIn() {
         });
     });
     $.ajax({
+<<<<<<< HEAD
            url: "http://192.168.10.106:8080/api/userlogin",
+=======
+           url: "http://192.168.10.127:8080/api/userlogin",
+>>>>>>> 5c304167703a76630d47d1c96a7591fbb8e5bda6
            type: "GET",
            dataType: "json",
            success: function(json) {
