@@ -1,0 +1,105 @@
+<html>
+    <head>
+        <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+        <meta http-equiv="refresh" content="20">
+    </head>
+
+    <body>
+        <p>
+        
+        </p>
+    </body>
+
+<script type="text/javascript">
+    $.ajax({
+           url: "http://192.168.10.127:8080/api/repairt",
+           type: "GET",
+           dataType: "json",
+           success: function(json) {
+                   var aphtml = ""
+                   var apendp = document.createElement("p");
+                   var titlename = ["編號","序號","機型","服務類型","保固狀態","故障描述","客戶","聯絡人","地址",
+                                    "電話","維修項目與金額","總金額","維修描述","維修備註","維修狀態",
+                                    "客戶簽名","工程師簽名","工作狀態"];
+                   aphtml += '<table border=5><tr>';
+                   for (var i=0; i< titlename.length; i++) {
+                        aphtml += '<td>' + titlename[i] + '</td>';
+                   }
+                   aphtml += '</tr>';
+
+                   for (var j=0; j< json.length; j++) {
+                           aphtml += '<tr>';
+                           aphtml += '<td>' + json[j]["id"] + '</td>'
+                           aphtml += '<td>' + json[j]["number"] + '</td>'
+                           aphtml += '<td>' + json[j]["machineType"] + '</td>'
+                           aphtml += '<td>' + json[j]["serviceType"] + '</td>'
+                           if(json[j]["warranty"] == true){
+                                aphtml += '<td>' + "保內" + '</td>'
+                           }
+                           else{
+                                aphtml += '<td>' + "保外" + '</td>'
+                           }
+                           aphtml += '<td>' + json[j]["brokenDescription"] + '</td>'
+                           aphtml += '<td>' + json[j]["client"] + '</td>'
+                           aphtml += '<td>' + json[j]["contactPerson"] + '</td>'
+                           aphtml += '<td>' + json[j]["address"] + '</td>'
+                           aphtml += '<td>' + json[j]["tel"] + '</td>'
+                           aphtml += '<td>' + json[j]["repairItem"] + '</td>'
+                           aphtml += '<td>' + json[j]["repaircostSum"] + '</td>'
+                           aphtml += '<td>' + json[j]["repairDetailDescription"] + '</td>'
+                           aphtml += '<td>' + json[j]["repairDetailNote"] + '</td>'
+
+                           if(json[j]["repairDetailState"] == true){
+                                aphtml += '<td>' + "維修完畢" + '</td>'
+                           }
+                           else if (json[j]["repairDetailState"] == false){
+                                aphtml += '<td>' + "取消維修" + '</td>'
+                           }
+                           else{
+                                aphtml += '<td>' + json[j]["repairDetailState"] + '</td>'
+                           }
+                           if(json[j]["customerSign"] != null){
+                                var str = json[j]["customerSign"]
+                                var strs = str.replace("file:///Users/xinwei/vapor/RMApp/Public/", "");
+                                aphtml += '<td><img src='+strs+' width="100" height="100"></td>'
+                            }
+                           else{
+                                aphtml += '<td>' +json[j]["customerSign"]+ '</td>'
+                           }
+                           if(json[j]["engineerSign"] != null){
+                               var str = json[j]["engineerSign"]
+                               var strs = str.replace("file:///Users/xinwei/vapor/RMApp/Public/", "");
+                               aphtml += '<td><img src='+strs+' width="100" height="100"></td>'
+                           }
+                           else{
+                                aphtml += '<td>' +json[j]["engineerSign"]+ '</td>'
+                           }
+                           if(json[j]["workEnd"] == true){
+                                aphtml += '<td>' + "已結束" + '</td>'
+                           }
+                           else{
+                                aphtml += '<td>' + "尚未結束" + '</td>'
+                           }
+                        aphtml += '</tr>';
+                   }
+                   aphtml += '</table>';
+                   apendp.innerHTML = aphtml;
+                   document.body.appendChild(apendp);
+           }
+           ,
+           error: function(jqXHR, textStatus, errorThrown){
+               console.log(jqXHR.status);
+               console.log(jqXHR.readyState)
+               console.log(jqXHR.statusText )
+               console.log(textStatus);
+               console.log(errorThrown);
+           }
+    });
+
+</script>
+
+</html>
+    
+
+
+

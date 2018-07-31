@@ -1,0 +1,93 @@
+<html>
+    <head>
+        <style>
+            .buttona{
+                width:150px;
+                height:40px;
+                border:none;
+                outline:none;
+                box-shadow:-5px 5px 5px 0 #8aa7fb;
+                margin-top:20px;
+                color:#ffffff;
+                font-size:14px;
+                text-shadow:0 1px rgba(0,0,0,0.4);
+                background-color:#7698fc;
+                border-radius:3px;
+                font-weight:500
+            }
+        .buttona:hover{
+            background-color:#fcad76;
+            cursor:pointer
+        }
+        .buttona:active{
+            margin-left:-5px;
+            margin-bottom:-5px;
+            padding-top:2px;
+            box-shadow:none
+        }
+        .tstyle1
+        {
+            width:250px;
+            height:30px;
+            border-style: solid;
+            border-width: 1px;
+            border-color: #000;
+            border-radius: 50px;
+            text-align:center;
+            font-size:16px
+        }
+        </style>
+    </head>
+    <body>
+        <form action="http://192.168.10.127:8080/api/repairt/UserInformation" enctype="application/json; charset=utf-8" method="post" target="_self" id="myForm">
+            序號&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input class="tstyle1" type="text" name="number" id="r1"><br><br>
+            機型&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input class="tstyle1" type="text" name="machineType" id="r2"><br><br>
+            服務類型
+            <input type="radio" name="serviceType" value="%E5%BA%97%E5%85%A7"  id="r31">店內
+            <input type="radio" name="serviceType" value="%E5%A4%96%E5%87%BA"  id="r32">外出
+            <input type="radio" name="serviceType" value="%E5%90%88%E7%B4%84%E7%B6%AD%E8%AD%B7"  id="r33">合約維護<br><br>
+            保固狀態
+            <input type="radio" name="warranty" value="true"  id="r41">保內
+            <input type="radio" name="warranty" value="false"  id="r42">保外<br><br>
+            故障描述
+            <input class="tstyle1" type="text" name="brokenDescription" id="r5"><br><br>
+            客戶&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input class="tstyle1" type="text" name="contactPerson" id="r6"><br><br>
+            聯絡人&nbsp;&nbsp;&nbsp;
+            <input class="tstyle1" type="text" name="client" id="r7"><br><br>
+            地址&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input class="tstyle1" type="text" name="address" id="r8"><br><br>
+            電話&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input class="tstyle1" type="text" name="tel" id="r9"><br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input class="buttona" type="button" onclick="myFunction();" value="check">
+        </form>
+        <script>
+            function myFunction() {
+                document.getElementById("r5").value = encodeURI(document.getElementById("r5").value);
+                document.getElementById("r6").value = encodeURI(document.getElementById("r6").value);
+                document.getElementById("r7").value = encodeURI(document.getElementById("r7").value);
+                document.getElementById("r8").value = encodeURI(document.getElementById("r8").value);
+                document.getElementById("myForm").submit();
+                
+                document.getElementById("r1").value = "";
+                document.getElementById("r2").value = "";
+
+                document.getElementById("r31").checked = false;
+                document.getElementById("r32").checked = false;
+                document.getElementById("r33").checked = false;
+                
+                document.getElementById("r41").checked = false;
+                document.getElementById("r42").checked = false;
+                
+                document.getElementById("r5").value = "";
+                document.getElementById("r6").value = "";
+                document.getElementById("r7").value = "";
+                document.getElementById("r8").value = "";
+                document.getElementById("r9").value = "";
+            }
+        </script>
+    </body>
+</html>

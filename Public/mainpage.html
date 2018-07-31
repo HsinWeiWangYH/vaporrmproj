@@ -1,0 +1,182 @@
+<html>
+    <head>
+        <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+        <style>
+            .buttona{
+                width:150px;
+                height:40px;
+                border:none;
+                outline:none;
+                box-shadow:-5px 5px 5px 0 #8aa7fb;
+                margin-top:20px;
+                color:#ffffff;
+                font-size:14px;
+                text-shadow:0 1px rgba(0,0,0,0.4);
+                background-color:#7698fc;
+                border-radius:3px;
+                font-weight:500
+            }
+            .buttona:hover{
+                background-color:#fcad76;
+                cursor:pointer
+            }
+            .buttona:active{
+                margin-left:-5px;
+                margin-bottom:-5px;
+                padding-top:2px;
+                box-shadow:none
+            }
+            .tstyle1
+            {
+                width:150px;
+                height:30px;
+                border-style: solid;
+                border-width: 1px;
+                border-color: #000;
+                border-radius: 50px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <form action="" enctype="application/json; charset=utf-8" method="post" target="_self" id="myForm">
+            使用者：<input class="tstyle1" style="text-align:center;font-size:16px" type="text" name="useremail" id ="check1"><br><br>
+            密&nbsp;&nbsp;&nbsp;碼：<input class="tstyle1" style="text-align:center;font-size:16px" type="password" name="userpassword" id ="check2"><br><br>
+
+            &nbsp;&nbsp;&nbsp;&nbsp;<input class="buttona" type ="button" onclick="SignUp()" value="申請帳戶"></input><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<input class="buttona" type ="button" onclick="LogIn()"  value="登入帳號"></input><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<input class="buttona" type ="button" onclick="ForgetPassword()"  value="忘記密碼"></input>
+        </form>
+        <p></p>
+    </body>
+
+<script type="text/javascript">
+    document.cookie = ""
+    function SignUp() {
+        var ifSuccess = 1
+        $.ajax({
+               url: "http://192.168.10.127:8080/api/userlogin",
+               type: "GET",
+               dataType: "json",
+               success: function(json) {
+                   var $div=$("p");
+                   for (var i = 0; i < json.length; i++) {
+               
+                       if(json[i]["useremail"]==document.getElementById("check1").value ||  document.getElementById("check1").value == "Admin"){
+                            alert("帳戶已存在");
+                            ifSuccess = 0
+                            break;
+                       }
+
+                   }
+                   if(ifSuccess==1){
+                   document.getElementById("myForm").action = "http://192.168.10.127:8080/set/userlogin/userInfoSignUp"
+                   document.getElementById("myForm").submit();
+                   }
+               }
+               ,
+               error: function(jqXHR, textStatus, errorThrown){
+                   console.log(jqXHR.status);
+                   console.log(jqXHR.readyState)
+                   console.log(jqXHR.statusText )
+                   console.log(textStatus);
+                   console.log(errorThrown);
+               }
+        });
+    }
+    function ForgetPassword() {
+        var ifFind = 0
+        $.ajax({
+               url: "http://192.168.10.127:8080/api/userlogin",
+               type: "GET",
+               dataType: "json",
+               success: function(json) {
+                   var $div=$("p");
+                   for (var i = 0; i < json.length; i++) {
+                       if(json[i]["useremail"]==document.getElementById("check1").value && json[i]["astate"]==2){
+                           ifFind = 1
+                           break;
+                       }
+                   }
+                   if(ifFind==1){
+                       document.getElementById("myForm").action = "http://192.168.10.127:8080/set/userlogin/tryChange"
+                       document.getElementById("myForm").submit();
+                   }
+                   else{
+                    alert("帳戶不存在(包含未通過申請帳戶)");
+                   }
+               }
+               ,
+               error: function(jqXHR, textStatus, errorThrown){
+                   console.log(jqXHR.status);
+                   console.log(jqXHR.readyState)
+                   console.log(jqXHR.statusText )
+                   console.log(textStatus);
+                   console.log(errorThrown);
+               }
+         });
+    }
+function LogIn() {
+    var ifSuccess = 1
+    var CorrectPassword = ""
+    $(function() {
+        $.ajax({
+            type: "POST",
+            url: "http://192.168.10.127:8080/set/allowlogin",
+            data: $("#myForm").serialize(),
+            success: function(data){
+                CorrectPassword = data
+            }
+        });
+    });
+    $.ajax({
+           url: "http://192.168.10.127:8080/api/userlogin",
+           type: "GET",
+           dataType: "json",
+           success: function(json) {
+               var $div=$("p");
+               for (var i = 0; i < json.length; i++) {
+                   if(document.getElementById("check1").value == json[i]["useremail"] && json[i]["astate"]==2){
+                    ifSuccess = 1
+                       if(json[i]["userpassword"]==CorrectPassword){
+                           document.getElementById("myForm").action = "engineer.html"
+                           document.cookie = document.getElementById("check1").value
+                           document.getElementById("myForm").submit();
+                       }
+                        else{
+                            alert("密碼錯誤");
+                        }
+                       break;
+                   }
+                   else if(document.getElementById("check1").value == "Admin"){
+                       ifSuccess = 1
+                       if(document.getElementById("check2").value == "admin1234"){
+                           document.getElementById("myForm").action = "adminpage.html"
+                           document.getElementById("myForm").submit();
+                       }
+                       else{
+                       alert("密碼錯誤");
+                       }
+                       break;
+                   }
+                   else{
+                    ifSuccess = 0
+                   }
+               }
+               if(ifSuccess==0){
+                   alert("找不到合格狀態帳戶");
+               }
+           }
+           ,
+           error: function(jqXHR, textStatus, errorThrown){
+               console.log(jqXHR.status);
+               console.log(jqXHR.readyState)
+               console.log(jqXHR.statusText )
+               console.log(textStatus);
+               console.log(errorThrown);
+           }
+    });
+}
+</script>
+
+</html>

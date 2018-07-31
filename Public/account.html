@@ -1,0 +1,118 @@
+<html>
+    <head>
+        <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+        <meta http-equiv="refresh" content="10">
+        <style>
+          .buttona{
+                width:100px;
+                height:30px;
+                border:none;
+                outline:none;
+                box-shadow:-5px 5px 5px 0 #8aa7fb;
+                margin-top:20px;
+                color:#ffffff;
+                font-size:14px;
+                text-shadow:0 1px rgba(0,0,0,0.4);
+                background-color:#7698fc;
+                border-radius:3px;
+                font-weight:500
+        }
+        .buttona:hover{
+            background-color:#fcad76;
+            cursor:pointer
+        }
+        .buttona:active{
+            margin-left:-5px;
+            margin-bottom:-5px;
+            padding-top:2px;
+            box-shadow:none
+        }
+        </style>
+    </head>
+
+    <body>
+        <p>
+        
+        </p>
+    </body>
+
+<script type="text/javascript">
+    $.ajax({
+           url: "http://192.168.10.127:8080/api/userlogin",
+           type: "GET",
+           dataType: "json",
+           success: function(json) {
+                   var aphtml = ""
+                   var apendp = document.createElement("p");
+                   var titlename = ["使用者帳號","帳號狀態","操作"];
+                   aphtml += '<table border=5><tr>';
+                   for (var i=0; i< titlename.length; i++) {
+                        aphtml += '<td align="center" valign="center">' + titlename[i] + '</td>';
+                   }
+                   aphtml += '</tr>';
+                   for (var j=0; j< json.length; j++) {
+
+                       aphtml += '<tr>';
+                       aphtml += '<td>&nbsp;' + json[j]["useremail"] + '</td>'
+
+                       if(json[j]["astate"] == 1){
+                            aphtml += '<td align="center" valign="center">' + '&nbsp;申請帳號待審核&nbsp;' + '</td>';
+                            var accountJ = json[j]["useremail"]
+                            aphtml += '<td align="center" valign="center">' +  buttonOne(accountJ) + '</td>';
+                       }
+                       else if(json[j]["astate"] == 3){
+                            aphtml += '<td align="center" valign="center">' + '&nbsp;申請修改待審核&nbsp;' + '</td>';
+                            var accountJ = json[j]["useremail"]
+                            aphtml += '<td align="center" valign="center">' + buttonTwo(j,accountJ) + '</td>';
+                       }
+                       else{
+                            aphtml += '<td align="center" valign="center">' + '&nbsp;狀態合格賬戶&nbsp;' + '</td>';
+                            aphtml += '<td align="center" valign="center">' + '' + '</td>';
+                       }
+                       aphtml += '</tr>';
+           
+                   }
+                   aphtml += '</table>';
+                   apendp.innerHTML = aphtml;
+                   document.body.appendChild(apendp);
+           }
+           ,
+           error: function(jqXHR, textStatus, errorThrown){
+               console.log(jqXHR.status);
+               console.log(jqXHR.readyState)
+               console.log(jqXHR.statusText )
+               console.log(textStatus);
+               console.log(errorThrown);
+           }
+    });
+    function buttonOne(j){
+        var account = j;
+        var str = '<form action="http://192.168.10.127:8080/set/userlogin/userVerification"  enctype="application/json" method="post" target="_self"><input type="hidden" name="useremail" value =' + encodeURI(j) + '>' +
+                '&nbsp;&nbsp;<input class="buttona" type ="submit" value="通過申請"></input>&nbsp;&nbsp;</form>';
+        return str;
+        
+    }
+    function buttonTwo(i,j){
+        var account = j;
+        var str = '<form action=""  enctype="application/json" method="post" id=frm'+ i +'  target="_self">'+
+        '<input type="hidden" name="useremail" value =' + encodeURI(j) + '>' +
+        '&nbsp;&nbsp;<input class="buttona" type ="button" value="通過修改資格" onclick="usestate('+i+',1)"></input>&nbsp;&nbsp;<br>'+
+        '&nbsp;&nbsp;<input class="buttona" type ="button" value="取消修改資格" onclick="usestate('+i+',2)"></input>&nbsp;&nbsp;</form>';
+        return str;
+    }
+    function usestate(i,k){
+        var str = "frm" + i;
+        if(k==1)//通過
+            document.getElementById(str).action = "http://192.168.10.127:8080/set/userlogin/userAllow";
+        else//[2]取消
+            document.getElementById(str).action = "http://192.168.10.127:8080/set/userlogin/userNotAllow";
+        document.getElementById(str).submit();
+    }
+
+</script>
+
+</html>
+    
+
+
+
