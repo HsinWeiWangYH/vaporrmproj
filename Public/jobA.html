@@ -12,17 +12,13 @@
 
 <script type="text/javascript">
     $.ajax({
-<<<<<<< HEAD
-           url: "http://192.168.10.106:8080/api/repairt",
-=======
-           url: "http://192.168.10.127:8080/api/repairt",
->>>>>>> 5c304167703a76630d47d1c96a7591fbb8e5bda6
+           url: "http://localhost:8080/api/repairt",
            type: "GET",
            dataType: "json",
            success: function(json) {
                    var aphtml = ""
                    var apendp = document.createElement("p");
-                   var titlename = ["編號","序號","機型","服務類型","保固狀態","故障描述","客戶","聯絡人","地址",
+                   var titlename = ["編號","工程師","序號","機型","服務類型","保固狀態","故障描述","客戶","聯絡人","地址",
                                     "電話","維修項目與金額","總金額","維修描述","維修備註","維修狀態",
                                     "客戶簽名","工程師簽名","工作狀態"];
                    aphtml += '<table border=5><tr>';
@@ -34,6 +30,7 @@
                    for (var j=0; j< json.length; j++) {
                            aphtml += '<tr>';
                            aphtml += '<td>' + json[j]["id"] + '</td>'
+                           aphtml += '<td>' + json[j]["engineer"] + '</td>'
                            aphtml += '<td>' + json[j]["number"] + '</td>'
                            aphtml += '<td>' + json[j]["machineType"] + '</td>'
                            aphtml += '<td>' + json[j]["serviceType"] + '</td>'
@@ -64,7 +61,7 @@
                            }
                            if(json[j]["customerSign"] != null){
                                 var str = json[j]["customerSign"]
-                                var strs = str.replace("file:///Users/xinwei/vapor/RMApp/Public/", "");
+                                var strs = str.replace("file:///Users/zenchermini/Desktop/vaporrmproj/Public/", "");
                                 aphtml += '<td><img src='+strs+' width="100" height="100"></td>'
                             }
                            else{
@@ -72,7 +69,7 @@
                            }
                            if(json[j]["engineerSign"] != null){
                                var str = json[j]["engineerSign"]
-                               var strs = str.replace("file:///Users/xinwei/vapor/RMApp/Public/", "");
+                               var strs = str.replace("file:///Users/zenchermini/Desktop/vaporrmproj/Public/", "");
                                aphtml += '<td><img src='+strs+' width="100" height="100"></td>'
                            }
                            else{

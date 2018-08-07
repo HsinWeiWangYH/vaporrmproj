@@ -12,6 +12,7 @@ final class Repair: Codable {
     var contactPerson : String?
     var address : String?
     var tel : String?
+    var engineer : String?
     
     var repairItem : String?
     var repaircostSum : Int?
@@ -23,7 +24,8 @@ final class Repair: Codable {
     var engineerSign : URL?
     var workEnd: Bool?
     
-    init(number : String?,machineType : String?,serviceType : String?,warranty : Bool?,brokenDescription : String?,client : String?,contactPerson : String?,address : String?,tel : String?,repairItem : String? ,repaircostSum : Int? ,repairDetailDescription : String? ,repairDetailNote : String?,repairDetailState : Bool? ,customerSign : URL? ,engineerSign : URL?,repairDetailPicArray : [String]?,workEnd : Bool?) {
+    init(number : String?,machineType : String?,serviceType : String?,warranty : Bool?,brokenDescription : String?,client : String?,contactPerson : String?,address : String?,tel : String?,repairItem : String? ,repaircostSum : Int? ,repairDetailDescription : String? ,repairDetailNote : String?,repairDetailState : Bool? ,customerSign : URL? ,engineerSign : URL?,repairDetailPicArray : [String]?,workEnd : Bool?,engineer:String?) {
+        self.engineer = engineer
         self.number = number
         self.machineType = machineType
         self.serviceType = serviceType

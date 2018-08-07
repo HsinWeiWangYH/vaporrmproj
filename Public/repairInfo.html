@@ -1,5 +1,6 @@
 <html>
     <head>
+        <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
         <style>
             .buttona{
                 width:150px;
@@ -39,36 +40,61 @@
         </style>
     </head>
     <body>
-<<<<<<< HEAD
-        <form action="http://192.168.10.106:8080/api/repairt/UserInformation" enctype="application/json; charset=utf-8" method="post" target="_self" id="myForm">
-=======
-        <form action="http://192.168.10.127:8080/api/repairt/UserInformation" enctype="application/json; charset=utf-8" method="post" target="_self" id="myForm">
->>>>>>> 5c304167703a76630d47d1c96a7591fbb8e5bda6
-            序號&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <form action="http://localhost:8080/api/repairt/UserInformation" enctype="application/json; charset=utf-8" method="post" target="_self" id="myForm">
+            序號&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <input class="tstyle1" type="text" name="number" id="r1"><br><br>
-            機型&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            機型&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <input class="tstyle1" type="text" name="machineType" id="r2"><br><br>
-            服務類型
+            服務類型&nbsp;&nbsp;&nbsp;&nbsp;
             <input type="radio" name="serviceType" value="%E5%BA%97%E5%85%A7"  id="r31">店內
             <input type="radio" name="serviceType" value="%E5%A4%96%E5%87%BA"  id="r32">外出
             <input type="radio" name="serviceType" value="%E5%90%88%E7%B4%84%E7%B6%AD%E8%AD%B7"  id="r33">合約維護<br><br>
-            保固狀態
+            保固狀態&nbsp;&nbsp;&nbsp;&nbsp;
             <input type="radio" name="warranty" value="true"  id="r41">保內
             <input type="radio" name="warranty" value="false"  id="r42">保外<br><br>
-            故障描述
+            故障描述&nbsp;&nbsp;&nbsp;
             <input class="tstyle1" type="text" name="brokenDescription" id="r5"><br><br>
-            客戶&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            客戶&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <input class="tstyle1" type="text" name="contactPerson" id="r6"><br><br>
-            聯絡人&nbsp;&nbsp;&nbsp;
+            聯絡人&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <input class="tstyle1" type="text" name="client" id="r7"><br><br>
-            地址&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            地址&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <input class="tstyle1" type="text" name="address" id="r8"><br><br>
-            電話&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            電話&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <input class="tstyle1" type="text" name="tel" id="r9"><br><br>
+            
+            <p id="selectEn"></p>
+            
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <input class="buttona" type="button" onclick="myFunction();" value="check">
         </form>
         <script>
+            $.ajax({
+                   url: "http://localhost:8080/api/userlogin",
+                   type: "GET",
+                   dataType: "json",
+                   success: function(json) {
+                        var aphtml = ""
+                        var apendp = document.getElementById("selectEn");
+                        aphtml += '負責工程師&nbsp;<select name="engineer" class="tstyle1">'
+                        for (var i = 0; i < json.length; i++) {
+                            if(json[i]["astate"]==2){
+                                aphtml += '<option value='+json[i]["useremail"]+'>'+json[i]["useremail"]+'</option>'
+                            }
+                        }
+                        aphtml += '</select>'
+                        apendp.innerHTML = aphtml;
+                       
+                   }
+                   ,
+                   error: function(jqXHR, textStatus, errorThrown){
+                       console.log(jqXHR.status);
+                       console.log(jqXHR.readyState)
+                       console.log(jqXHR.statusText )
+                       console.log(textStatus);
+                       console.log(errorThrown);
+                   }
+            });
             function myFunction() {
                 document.getElementById("r5").value = encodeURI(document.getElementById("r5").value);
                 document.getElementById("r6").value = encodeURI(document.getElementById("r6").value);

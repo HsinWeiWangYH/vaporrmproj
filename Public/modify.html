@@ -50,16 +50,13 @@
     </body>
 
 <script type="text/javascript">
+    document.getElementById("check1").value = document.cookie
     function Ｍodify() {
         var CorrectPassword = ""
         $(function() {
           $.ajax({
                  type: "POST",
-<<<<<<< HEAD
-                 url: "http://192.168.10.106:8080/set/allowlogin",
-=======
-                 url: "http://192.168.10.127:8080/set/allowlogin",
->>>>>>> 5c304167703a76630d47d1c96a7591fbb8e5bda6
+                 url: "http://localhost:8080/set/allowlogin",
                  data: $("#myForm").serialize(),
                  success: function(data){
                  CorrectPassword = data
@@ -68,11 +65,7 @@
           });
         var ifSuccess = 1
         $.ajax({
-<<<<<<< HEAD
-               url: "http://192.168.10.106:8080/api/userlogin",
-=======
-               url: "http://192.168.10.127:8080/api/userlogin",
->>>>>>> 5c304167703a76630d47d1c96a7591fbb8e5bda6
+               url: "http://localhost:8080/api/userlogin",
                type: "GET",
                dataType: "json",
                success: function(json) {
@@ -81,11 +74,7 @@
                            if(json[i]["useremail"]==document.getElementById("check1").value){
                                 if(json[i]["userpassword"]==CorrectPassword){
                                     ifSuccess = 0
-<<<<<<< HEAD
-                                   document.getElementById("myForm").action = "http://192.168.10.106:8080/set/userlogin/userChange"
-=======
-                                   document.getElementById("myForm").action = "http://192.168.10.127:8080/set/userlogin/userChange"
->>>>>>> 5c304167703a76630d47d1c96a7591fbb8e5bda6
+                                   document.getElementById("myForm").action = "http://localhost:8080/set/userlogin/userChange"
                                    document.getElementById("myForm").submit();
                                     break;
                                 }
