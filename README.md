@@ -1,7 +1,7 @@
 # vaporrmproj
 
 進入網址
-http://192.168.10.106:8080/mainpage.html
+http://211.75.169.51:8090/mainpage.html
 
 登入
 
