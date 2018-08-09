@@ -1,5 +1,6 @@
 <html>
     <head>
+        <title>建立工作清單</title>
         <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
         <style>
             .buttona{
@@ -40,7 +41,7 @@
         </style>
     </head>
     <body>
-        <form action="http://localhost:8080/api/repairt/UserInformation" enctype="application/json; charset=utf-8" method="post" target="_self" id="myForm">
+        <form action="http://211.75.169.51:8090/api/repairt/UserInformation" enctype="application/json; charset=utf-8" method="post" target="_self" id="myForm">
             序號&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <input class="tstyle1" type="text" name="number" id="r1"><br><br>
             機型&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -70,7 +71,7 @@
         </form>
         <script>
             $.ajax({
-                   url: "http://localhost:8080/api/userlogin",
+                   url: "http://211.75.169.51:8090/api/userlogin",
                    type: "GET",
                    dataType: "json",
                    success: function(json) {

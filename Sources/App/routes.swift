@@ -51,7 +51,7 @@ public func routes(_ router: Router) throws {
         let now = Date()
         let timeInterval:TimeInterval = now.timeIntervalSince1970
         let photoName = "UserImage" + String(idX) + "_" + String(timeInterval) + ".png";
-        let dest = URL(fileURLWithPath: "/Users/xinwei/vapor/RMApp/Public/image/"+photoName)
+        let dest = URL(fileURLWithPath: "/Users/zenchermini/Desktop/vaporrmproj/Public/image/"+photoName)
         do{try imageData?.write(to: dest)}
         catch {
             print(error.localizedDescription)
@@ -86,16 +86,33 @@ public func routes(_ router: Router) throws {
         return UserLogin.query(on: req).all()
     }
     //account state : [1]verification[2]general[3]modify
+    //account is Use: [1]true[0]false
     //申請帳號
     router.post("set", "userlogin","userInfoSignUp") { req -> String in
         try req.content.decode(UserLogin.self)
             .flatMap(to: UserLogin.self) { logintest in
                 logintest.astate = 1
+                logintest.isUse = false
                 logintest.userpassword = String(logintest.userpassword.hashValue)
                 return logintest.save(on: req)
         }
         return "審核中"
     }
+    //修改登入狀態
+    router.post(UserUseData.self, at:"set", "userlogin","Use") { req, data -> String in
+        let account = data.useremail.removingPercentEncoding
+        let datachange = UserLogin.query(on : req).filter(\.useremail == account).first().map(to: UserLogin.self) {
+            accounttest in
+            guard let accounttest = accounttest else {
+                throw Abort(.notFound)
+            }
+            accounttest.isUse = data.isUse
+            return accounttest
+        }
+        datachange.save(on: req)
+        return "已允許"
+    }
+    
     //允許申請
     router.post(UserAccountData.self, at:"set", "userlogin","userVerification") { req, data -> String in
         let account = data.useremail.removingPercentEncoding
@@ -206,4 +223,8 @@ struct UserModifyData: Content {
 }
 struct UserAccountData: Content {
     var useremail: String
+}
+struct UserUseData: Content {
+    var useremail: String
+    var isUse: Bool
 }

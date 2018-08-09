@@ -1,5 +1,6 @@
 <html>
     <head>
+        <title>工作清單</title>
         <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
         <meta http-equiv="refresh" content="20">
     </head>
@@ -12,7 +13,7 @@
 
 <script type="text/javascript">
     $.ajax({
-           url: "http://localhost:8080/api/repairt",
+           url: "http://211.75.169.51:8090/api/repairt",
            type: "GET",
            dataType: "json",
            success: function(json) {

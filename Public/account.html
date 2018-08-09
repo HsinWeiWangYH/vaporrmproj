@@ -1,5 +1,6 @@
 <html>
     <head>
+        <title>帳號管理</title>
         <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
         <meta http-equiv="refresh" content="10">
         <style>
@@ -38,7 +39,7 @@
 
 <script type="text/javascript">
     $.ajax({
-           url: "http://localhost:8080/api/userlogin",
+           url: "http://211.75.169.51:8090/api/userlogin",
            type: "GET",
            dataType: "json",
            success: function(json) {
@@ -87,7 +88,7 @@
     });
     function buttonOne(j){
         var account = j;
-        var str = '<form action="http://localhost:8080/set/userlogin/userVerification"  enctype="application/json" method="post" target="_self"><input type="hidden" name="useremail" value =' + encodeURI(j) + '>' +
+        var str = '<form action="http://211.75.169.51:8090/set/userlogin/userVerification"  enctype="application/json" method="post" target="_self"><input type="hidden" name="useremail" value =' + encodeURI(j) + '>' +
                 '&nbsp;&nbsp;<input class="buttona" type ="submit" value="通過申請"></input>&nbsp;&nbsp;</form>';
         return str;
         
@@ -103,9 +104,9 @@
     function usestate(i,k){
         var str = "frm" + i;
         if(k==1)//通過
-            document.getElementById(str).action = "http://localhost:8080/set/userlogin/userAllow";
+            document.getElementById(str).action = "http://211.75.169.51:8090/set/userlogin/userAllow";
         else//[2]取消
-            document.getElementById(str).action = "http://localhost:8080/set/userlogin/userNotAllow";
+            document.getElementById(str).action = "http://211.75.169.51:8090/set/userlogin/userNotAllow";
         document.getElementById(str).submit();
     }
 

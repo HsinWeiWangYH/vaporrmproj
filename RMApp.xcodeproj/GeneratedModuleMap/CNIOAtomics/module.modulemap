@@ -1,4 +1,4 @@
 module CNIOAtomics {
-    umbrella "/Users/xinwei/vapor/RMApp/.build/checkouts/swift-nio.git-3108475404973543938/Sources/CNIOAtomics/include"
+    umbrella "/Users/xinwei/vapor/vaporrmproj/.build/checkouts/swift-nio.git-3108475404973543938/Sources/CNIOAtomics/include"
     export *
 }

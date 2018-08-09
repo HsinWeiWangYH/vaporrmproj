@@ -1,5 +1,6 @@
 <html>
     <head>
+        <title>修改帳號</title>
         <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
         <style>
             .buttona{
@@ -56,7 +57,7 @@
         $(function() {
           $.ajax({
                  type: "POST",
-                 url: "http://localhost:8080/set/allowlogin",
+                 url: "http://211.75.169.51:8090/set/allowlogin",
                  data: $("#myForm").serialize(),
                  success: function(data){
                  CorrectPassword = data
@@ -65,7 +66,7 @@
           });
         var ifSuccess = 1
         $.ajax({
-               url: "http://localhost:8080/api/userlogin",
+               url: "http://211.75.169.51:8090/api/userlogin",
                type: "GET",
                dataType: "json",
                success: function(json) {
@@ -74,7 +75,7 @@
                            if(json[i]["useremail"]==document.getElementById("check1").value){
                                 if(json[i]["userpassword"]==CorrectPassword){
                                     ifSuccess = 0
-                                   document.getElementById("myForm").action = "http://localhost:8080/set/userlogin/userChange"
+                                   document.getElementById("myForm").action = "http://211.75.169.51:8090/set/userlogin/userChange"
                                    document.getElementById("myForm").submit();
                                     break;
                                 }
